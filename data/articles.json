@@ -1,0 +1,56 @@
+[
+    {
+        "id": "1",
+        "name": "Notebook Hp 15\"",
+        "description": "Creada para mantenerte productivo y conectado, la HP Laptop 15 combina batería de larga duración y una pantalla de bordes súper delgados, en un diseño con mucho estilo.",
+        "precio": "105000",
+        "img": "NotebookHP15.jpg",
+        "img_desc": "Notebook Hp 15\""
+    },
+
+    {
+        "id": "2",
+        "name": "Smart Tv Philco 39\"",
+        "description": "El smart TV Philco PLD39HS21LC posee una pantalla LED de 39 pulgadas, formato widescreen (16:9) y resolución HD (1366 x 768 p), con la que podrás disfrutar de imágenes claras con excelentes colores y contrastes, mientras ves todas tus series, películas y programas favoritos.",
+        "precio": "36000",
+        "img": "SmartTvPhilco 39.jpg",
+        "img_desc": "Smart Tv Philco 39\""
+    },
+
+    {
+        "id": "3",
+        "name": "Tablet Gadnic Fenix Phone",
+        "description": "Esta tablet es ideal para cada una de tus actividades: editar fotos, documentos, navegar por internet y ¡mucho más! Su diseño delgado, compacto y portátil es la combinación perfecta de rendimiento y versatilidad.",
+        "precio": "23000",
+        "img": "TabletGadnicFenixPhone.jpg",
+        "img_desc": "Tablet Gadnic Fenix Phone"
+    },
+
+    {
+        "id": "4",
+        "name": "Xiaomi Mi Earbuds Basic 2",
+        "description": "Auricular Xiaomi Mi Earbuds Basic 2 es un diseño sofisticado y ligero una de las mejores opciones para pasarte al mundo de los auriculares True Wireless. Estos te permiten disfrutar de tu música y de tus entrenamientos como nunca antes, sin líos de cables.",
+        "precio": "13000",
+        "img": "XiaomiMiEarbudsBasic2.jpg",
+        "img_desc": "Auriculares Xiaomi Mi Earbuds Basic 2"
+    },
+
+    {
+        "id": "5",
+        "name": "Samsung Galaxy Tab A7 Lite",
+        "description": "Esta tablet Samsung es la compañera ideal, con capacidad de sobra para cada una de tus actividades. El diseño delgado, compacto y portátil, con facilidad para sostener en una mano, lo convierte en una combinación perfecta de rendimiento y versatilidad.",
+        "precio": "30000",
+        "img": "GalaxyTabA7Lite.jpg",
+        "img_desc": "Tablet Samsung Galaxy Tab A7 Lite"
+    },
+
+    {
+        "id": "6",
+        "name": "Kodak Smartway L1 Pro",
+        "description": "Llevá lo esencial. Si buscás un dispositivo que te permita almacenar fotos, videos y archivos indispensables, este celular con 16 GB de memoria interna es para vos.",
+        "precio": "15000",
+        "img": "KodakSmartwayL1Pro.jpg",
+        "img_desc": "Celular Kodak Smartway L1 Pro"
+    }
+    
+]

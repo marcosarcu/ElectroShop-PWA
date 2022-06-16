@@ -1,0 +1,33 @@
+{
+    "theme_color": "#27476E",
+    "background_color": "#F0F4FA",
+    "display": "standalone",
+    "scope": "./",
+    "start_url": "./index.html",
+    "name": "ElectroShop",
+    "short_name": "ElectroShop",
+    "description": "Compr\u00e1 electronica al mejor precio en ElectroShop. Productos de electronica con envio a tu casa!",
+    "id": "/pwaParcial1/index.html",
+    "icons": [
+        {
+            "src": "./imgs/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./imgs/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "./imgs/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "./imgs/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
