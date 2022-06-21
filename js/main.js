@@ -11,7 +11,7 @@ if ("serviceWorker" in navigator) {
 
 
 window.addEventListener('DOMContentLoaded', function () {
-    
+
     fetch('./data/articles.json')
         .then(response => response.json())
         .then(jsonArticles => {
@@ -73,10 +73,10 @@ window.addEventListener('DOMContentLoaded', function () {
                         console.log('Compraste ' + currentArticle.name);
                         // Guardo en localStorage
                         const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-                        if(cart.find(article => article.id === id)) {
+                        if (cart.find(article => article.id === id)) {
                             const index = cart.findIndex(article => article.id === id);
                             cart[index].cantidad += 1;
-                        } else{
+                        } else {
                             currentArticle.cantidad = 1;
                             cart.push(currentArticle);
                         }
@@ -104,54 +104,138 @@ window.addEventListener('DOMContentLoaded', function () {
             });
 
             // Actualizar carrito
-
             const updateCart = function () {
                 const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+                if(!cart.length > 0){
+                    const cartList = document.querySelector('.cart-list');
+                    cartList.innerHTML = '<p>No hay productos en el carrito</p>';
+                    cartIcon = document.querySelector('#cart-icon');
+                    cartIcon.className = 'bi bi-bag cart-btn fs-2';
+                    const cantidadCarrito = document.querySelector('#carrito-cantidad');
+                    cantidadCarrito.style.display = 'none';
+                    const cartFooter = document.querySelector('.cart-footer');
+                    cartFooter.setAttribute('style', 'display: none');
+                    
+                }
                 if (cart.length > 0) {
+                    cartIcon = document.querySelector('#cart-icon');
+                    cartIcon.className = 'bi bi-bag-fill cart-btn fs-2';
+                    const cantidadCarrito = document.querySelector('#carrito-cantidad');
+                    cantidadCarrito.style.display = 'block';
+                    cantidadCarrito.firstChild.innerHTML = cart.length;
+                    const cartFooter = document.querySelector('.cart-footer');
+                    cartFooter.setAttribute('style', 'display: flex');
                     // Crear el carrito
                     const cartList = document.querySelector('.cart-list');
                     cartList.innerHTML = "";
                     cart.forEach(article => {
-                        // const article = jsonArticles.find(article => article.id === id);
+                        // li
                         const li = document.createElement('li');
                         li.classList.add('list-group-item');
+                        // boton de eliminar
+                        const btnDlt = document.createElement('button');
+                        btnDlt.classList.add('btn', 'btn-danger', 'btn-sm', 'float-right', 'mt-4', 'mb-2');
+                        btnDlt.innerHTML = '<i class="bi bi-trash3"></i><span class="d-none  d-md-inline"> Eliminar</span>';
+                        // btnDlt.innerHTML = '';
+                        btnDlt.dataset.id = article.id;
+                        btnDlt.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const id = e.target.dataset.id;
+                            const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+                            const index = cart.findIndex(article => article.id === id);
+                            cart.splice(index, 1);
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            updateCart();
+                        });
+                        
+                        // Img
                         const img = document.createElement('img');
                         img.src = './imgs/' + article.img;
                         img.alt = article.img_desc;
-                        const p = document.createElement('p');
-                        p.innerHTML = article.name;
-                        const precio = document.createElement('p');
-                        precio.innerHTML = '$ ' + article.precio;
-                        const cantidad = document.createElement('p');
-                        cantidad.innerHTML = 'Cantidad: ' + article.cantidad;
-                        const total = document.createElement('p');
-                        total.innerHTML = 'Total: $ ' + article.precio * article.cantidad;
+                        // Nombre
+                        const nombre = document.createElement('h3');
+                        nombre.innerHTML = article.name;
+                        // Precio por unidad
+                        const precio = document.createElement('div');
+                        precio.innerHTML = 'Precio Unitario: $ ' + article.precio;
+                        // quantity input
+                        const label = document.createElement('label');
+                        label.classList.add('cart-label');
+                        label.innerHTML = 'Cantidad:';
+                        label.setAttribute('for', 'cantidad');
+                        const cantidad = document.createElement('input');
+                        cantidad.classList.add('mb-2', 'mt-2');
+                        cantidad.id = 'cantidad';
+                        cantidad.dataset.id = article.id;
+                        cantidad.type = 'number';
+                        cantidad.value = article.cantidad;
+                        cantidad.min = 1;
+                        cantidad.max = 10;
+                        cantidad.addEventListener('change', function (e) {
+                            e.preventDefault();
+                            const id = e.target.dataset.id;
+                            const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+                            // Actualizo la cantidad
+                            const index = cart.findIndex(article => article.id === id);
+                            cart[index].cantidad = e.target.value;
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            updateCart();
+
+                        });
+                        // Total
+                        const total = document.createElement('div');
+                        total.classList.add('precio', 'mb-2');
+                        total.innerHTML = '$ ' + article.precio * article.cantidad;
+                        //form-row
+                        const formRow = document.createElement('div');
+                        formRow.classList.add('form-row');
+                        formRow.appendChild(label);
+                        formRow.appendChild(cantidad);
+
+                        // Armar Body
+                        const div = document.createElement('div');
+                        div.classList.add('cart-item-info');
+                        div.appendChild(nombre);
+                        div.appendChild(total);
+                        div.appendChild(formRow);
+                        div.appendChild(precio);
+                        div.appendChild(btnDlt);
+                        //Appends
                         li.appendChild(img);
-                        li.appendChild(p);
-                        li.appendChild(precio);
-                        li.appendChild(cantidad);
-                        li.appendChild(total);
+                        li.appendChild(div);
                         cartList.appendChild(li);
                     });
                     // Crear el total
                     const total = document.querySelector('#total');
                     total.innerHTML = 'Total: $ ' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0);
 
-                    // Crear el boton de comprar
-                    const btnComprar = document.querySelector('#comprar');
-                    btnComprar.classList.add('show');
-                    btnComprar.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        localStorage.removeItem('cart');
-                        updateCart();
-                        window.location.href = './index.html';
-                    });
+                    
+                    
+
                 }
             }
 
             updateCart();
 
+            // Crear el boton de comprar
+            const comprar = (e) =>{
+                e.preventDefault();
+                new Toast({
+                    message: 'Compra realizada con exito',
+                    type: 'success'
+                });
+                localStorage.removeItem('cart');
+                updateCart();
+            } 
+            const btnComprar = document.querySelector('#comprar');
+            btnComprar.classList.add('show');
+            btnComprar.addEventListener('click', comprar);
+
         });
+
+    
+    
+
 
     // Cerrar modal
     const closeModal = document.getElementById('close-modal');
@@ -164,22 +248,28 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Notificaciones
 
-    if(this.window.Notification && Notification.permission !== "denied") {
+    if (this.window.Notification && Notification.permission !== "denied") {
         setTimeout(() => {
             Notification.requestPermission()
-                .then(res =>  console.log(res))
+                .then(res => console.log(res))
         }, 10000);
     }
 
     // Online/Offline
     window.addEventListener('online', function () {
-        new Toast({message: 'Estás conectado a Internet', type: 'success'});
+        new Toast({
+            message: 'Estás conectado a Internet',
+            type: 'success'
+        });
     });
     window.addEventListener('offline', function () {
-        new Toast({message: 'No hay conexión a Internet', type: 'error'});
+        new Toast({
+            message: 'No hay conexión a Internet',
+            type: 'error'
+        });
     });
 
-    //Share
+    // Share
     const share = document.getElementById('share');
     share.addEventListener('click', function (e) {
         e.preventDefault();

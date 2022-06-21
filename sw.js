@@ -31,6 +31,7 @@ self.addEventListener("install", function (event) {
 
 })
 
+// Cache Dinamico
 self.addEventListener("fetch", function (event) {
 
     event.respondWith(
@@ -42,6 +43,11 @@ self.addEventListener("fetch", function (event) {
             if (response) {
                 return response;
             }
+
+            // Si no es http, devuelve la respuesta
+            if(!event.request.url.startsWith('http')){
+                return response;
+             }
 
             // Si no hay una respuesta en el cache, clono la petición
             let requestToCache = event.request.clone();
@@ -65,12 +71,11 @@ self.addEventListener("fetch", function (event) {
 
                 })
 
-
-            // return fetch(event.request);
         })
     );
 })
 
+// Notificacion Hard-codeada
 self.addEventListener("push", function(e){
     let title = e.data.text();
     let options = {
