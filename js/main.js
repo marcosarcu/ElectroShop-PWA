@@ -185,7 +185,7 @@ window.addEventListener('DOMContentLoaded', function () {
                         // Total
                         const total = document.createElement('div');
                         total.classList.add('precio', 'mb-2');
-                        total.innerHTML = '$ ' + article.precio * article.cantidad;
+                        total.innerHTML = '$ ' + (article.precio * article.cantidad).toLocaleString("ES-AR");
                         //form-row
                         const formRow = document.createElement('div');
                         formRow.classList.add('form-row');
@@ -207,7 +207,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     });
                     // Crear el total
                     const total = document.querySelector('#total');
-                    total.innerHTML = 'Total: $ ' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0);
+                    total.innerHTML = '<b>Total:</b><br> $' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0).toLocaleString("ES-AR") ;
 
                     
                     
@@ -222,7 +222,8 @@ window.addEventListener('DOMContentLoaded', function () {
                 e.preventDefault();
                 new Toast({
                     message: 'Compra realizada con exito',
-                    type: 'success'
+                    type: 'success',
+                    
                 });
                 localStorage.removeItem('cart');
                 updateCart();

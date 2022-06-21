@@ -280,7 +280,7 @@ ul li {
     position: absolute;
     right: 0;
     padding: 10px;
-    transform: translateX(-15px);
+    transform: translateX(-20px);
 }
 
 #carrito-cantidad span{
@@ -290,6 +290,11 @@ ul li {
     font-weight: 500;
 }
 
+/* toast */
+
+.toastjs.error{
+    border-left-color: #dc3545;
+}
 
 @media screen and (max-width: 768px) {
     .maxWidth {
