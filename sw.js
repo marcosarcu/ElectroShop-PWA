@@ -70,3 +70,31 @@ self.addEventListener("fetch", function (event) {
         })
     );
 })
+
+self.addEventListener("push", function(e){
+    let title = e.data.text();
+    let options = {
+        body: "Nuevo producto en ElectroShop",
+        icon: "./imgs/icon-512x512.png",
+        data: {id: 1},
+        actions: [
+            {action: "1", title: "Comprar"},
+            {action: "2", title: "cerrar"}
+        ],
+       
+    }
+    e.waitUntil(self.registration.showNotification(title, options));
+
+
+
+})
+
+self.addEventListener('notificationclick', function(e){
+    if(e.action === '1'){
+        console.log('El usuario clickeo comprar');
+        clients.openWindow('http://localhost/ElectroShop/index.html');
+    } else if(e.action === '2'){
+        console.log('El usuario clickeo cerrar');
+    }
+    e.notification.close();
+})

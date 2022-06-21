@@ -11,9 +11,9 @@ if ("serviceWorker" in navigator) {
 
 
 window.addEventListener('DOMContentLoaded', function () {
-
+    
     fetch('./data/articles.json')
-        .then(response =>  response.json())
+        .then(response => response.json())
         .then(jsonArticles => {
             const listado = document.getElementById('listado');
 
@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 const articleElement = document.createElement('article');
                 articleElement.classList.add('card');
                 // Crear Imagen
-                const img = document.createElement('img');               
+                const img = document.createElement('img');
                 img.classList.add('card-img-top');
                 img.src = './imgs/' + article.img;
                 img.alt = article.img_desc;
@@ -64,7 +64,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     modalBtn.dataset.id = article.id;
 
                     // Función a ejecutarse al clickar el boton de comprar
-                    let modalBtnEvent = function(e){
+                    let modalBtnEvent = function (e) {
                         e.preventDefault();
                         modal.classList.remove('show');
                         const id = e.target.dataset.id;
@@ -73,8 +73,16 @@ window.addEventListener('DOMContentLoaded', function () {
                         console.log('Compraste ' + currentArticle.name);
                         // Guardo en localStorage
                         const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-                        cart.push(currentArticle.id);
+                        if(cart.find(article => article.id === id)) {
+                            const index = cart.findIndex(article => article.id === id);
+                            cart[index].cantidad += 1;
+                        } else{
+                            currentArticle.cantidad = 1;
+                            cart.push(currentArticle);
+                        }
                         localStorage.setItem('cart', JSON.stringify(cart));
+                        // Actualizo el carrito
+                        updateCart();
                         // Elimino el evento
                         modalBtn.removeEventListener('click', modalBtnEvent);
                     }
@@ -94,15 +102,74 @@ window.addEventListener('DOMContentLoaded', function () {
                 wrapper.appendChild(articleElement);
                 listado.appendChild(wrapper);
             });
+
+            // Actualizar carrito
+
+            const updateCart = function () {
+                const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+                if (cart.length > 0) {
+                    const cartList = document.querySelector('.cart-list');
+                    cartList.innerHTML = "";
+                    cart.forEach(article => {
+                        // const article = jsonArticles.find(article => article.id === id);
+                        const li = document.createElement('li');
+                        li.innerHTML = article.name + ' x ' + article.cantidad;
+                        cartList.appendChild(li);
+                    });
+                }
+            }
+
+            updateCart();
+
         });
 
-        // Cerrar modal
-        const closeModal = document.getElementById('close-modal');
-        closeModal.addEventListener('click', function (e) {
-            e.preventDefault();
-            const modal = document.getElementById('modal');
-            modal.classList.remove('show');
-        });
+    // Cerrar modal
+    const closeModal = document.getElementById('close-modal');
+    closeModal.addEventListener('click', function (e) {
+        e.preventDefault();
+        const modal = document.getElementById('modal');
+        modal.classList.remove('show');
+    });
+
+
+    // Notificaciones
+
+    if(this.window.Notification && Notification.permission !== "denied") {
+        setTimeout(() => {
+            Notification.requestPermission()
+                .then(res =>  console.log(res))
+        }, 10000);
+    }
+
+    // Online/Offline
+    window.addEventListener('online', function () {
+        new Toast({message: 'Estás conectado a Internet', type: 'success'});
+    });
+    window.addEventListener('offline', function () {
+        new Toast({message: 'No hay conexión a Internet', type: 'error'});
+    });
+
+    //Share
+    const share = document.getElementById('share');
+    share.addEventListener('click', function (e) {
+        e.preventDefault();
+        navigator.share({
+            url: 'https://google.com',
+            title: 'ElectroShop',
+            text: 'Comprá electronica al mejor precio.',
+        })
+    })
+
 });
 
 
+// <div class="cart-item">
+//     <div class="cart-item-img">
+//         <img src="" alt="">
+//     </div>
+//     <div class="cart-item-info">
+//         <h4></h4>
+//         <p></p>
+//         <p></p>
+//     </div>
+// </div>
