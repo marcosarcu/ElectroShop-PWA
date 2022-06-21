@@ -205,6 +205,38 @@ ul li{
     margin: 0 0.5em ;
 }
 
+#cart.menudesplegable{
+    position: absolute;
+    top: 100%;
+    background: white;
+    width: 100%;
+    left: 0;
+    padding: 0.5rem 25%;
+    text-align: center;
+}
+
+.cart-list{
+    list-style-type: none;
+    padding-bottom: 1rem;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.list-group-item{
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+#comprar{
+    display: none;
+}
+
+#comprar.show{
+    display: block;
+}
+
 
 @media screen and (max-width: 768px){
     .maxWidth{
@@ -218,9 +250,10 @@ ul li{
     .menudesplegable{
         position: absolute;
         top: 100%;
-        background: var(--color-secundario);
+        background: white;
         width: 100%;
         left: 0;
+        padding: 0.5rem;
     }
 
     .navbar-collapse{

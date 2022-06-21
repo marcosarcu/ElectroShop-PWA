@@ -108,13 +108,43 @@ window.addEventListener('DOMContentLoaded', function () {
             const updateCart = function () {
                 const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
                 if (cart.length > 0) {
+                    // Crear el carrito
                     const cartList = document.querySelector('.cart-list');
                     cartList.innerHTML = "";
                     cart.forEach(article => {
                         // const article = jsonArticles.find(article => article.id === id);
                         const li = document.createElement('li');
-                        li.innerHTML = article.name + ' x ' + article.cantidad;
+                        li.classList.add('list-group-item');
+                        const img = document.createElement('img');
+                        img.src = './imgs/' + article.img;
+                        img.alt = article.img_desc;
+                        const p = document.createElement('p');
+                        p.innerHTML = article.name;
+                        const precio = document.createElement('p');
+                        precio.innerHTML = '$ ' + article.precio;
+                        const cantidad = document.createElement('p');
+                        cantidad.innerHTML = 'Cantidad: ' + article.cantidad;
+                        const total = document.createElement('p');
+                        total.innerHTML = 'Total: $ ' + article.precio * article.cantidad;
+                        li.appendChild(img);
+                        li.appendChild(p);
+                        li.appendChild(precio);
+                        li.appendChild(cantidad);
+                        li.appendChild(total);
                         cartList.appendChild(li);
+                    });
+                    // Crear el total
+                    const total = document.querySelector('#total');
+                    total.innerHTML = 'Total: $ ' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0);
+
+                    // Crear el boton de comprar
+                    const btnComprar = document.querySelector('#comprar');
+                    btnComprar.classList.add('show');
+                    btnComprar.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        localStorage.removeItem('cart');
+                        updateCart();
+                        window.location.href = './index.html';
                     });
                 }
             }
@@ -154,22 +184,10 @@ window.addEventListener('DOMContentLoaded', function () {
     share.addEventListener('click', function (e) {
         e.preventDefault();
         navigator.share({
-            url: 'https://google.com',
+            url: 'https://pwa-marcosarcu.netlify.app/',
             title: 'ElectroShop',
             text: 'Comprá electronica al mejor precio.',
         })
     })
 
 });
-
-
-// <div class="cart-item">
-//     <div class="cart-item-img">
-//         <img src="" alt="">
-//     </div>
-//     <div class="cart-item-info">
-//         <h4></h4>
-//         <p></p>
-//         <p></p>
-//     </div>
-// </div>

@@ -92,7 +92,7 @@ self.addEventListener("push", function(e){
 self.addEventListener('notificationclick', function(e){
     if(e.action === '1'){
         console.log('El usuario clickeo comprar');
-        clients.openWindow('http://localhost/ElectroShop/index.html');
+        clients.openWindow('https://pwa-marcosarcu.netlify.app/');
     } else if(e.action === '2'){
         console.log('El usuario clickeo cerrar');
     }
