@@ -315,6 +315,9 @@ ul li {
         
     }
     
+    .list-group-item{
+        grid-template-columns: 1fr;
+    }
 
     .menudesplegable {
         position: absolute;
