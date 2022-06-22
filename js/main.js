@@ -139,10 +139,11 @@ window.addEventListener('DOMContentLoaded', function () {
                         // btnDlt.innerHTML = '';
                         btnDlt.dataset.id = article.id;
                         btnDlt.addEventListener('click', function (e) {
+                            // console.log(e.currentTarget)
                             e.preventDefault();
-                            const id = e.target.dataset.id;
+                            const id = e.currentTarget.dataset.id;
                             const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-                            const index = cart.findIndex(article => article.id === id);
+                            const index = cart.findIndex(cartItem => cartItem.id === id);
                             cart.splice(index, 1);
                             localStorage.setItem('cart', JSON.stringify(cart));
                             updateCart();

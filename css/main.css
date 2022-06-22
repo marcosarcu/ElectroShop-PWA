@@ -13,6 +13,8 @@ body {
     display: grid;
     /* min-height: 100vh; */
     transition: all 1s;
+    padding-right: 0 !important;
+    overflow: visible !important;
 }
 
 img {
@@ -24,7 +26,10 @@ img {
     width: auto;
 }
 
-
+#header{
+    margin-right: auto !important;
+    padding-right: var(--bs-gutter-x,.75rem) !important;
+}
 
 #footerlogo {
     margin: auto;
