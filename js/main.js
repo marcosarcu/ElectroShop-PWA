@@ -39,8 +39,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 // Crear p
                 const cardText = document.createElement('p');
                 cardText.classList.add('card-text', "precio", "align-center");
-                cardText.innerHTML = '$' + parseFloat(article.precio).toLocaleString("ES-AR");
-                console.log('$' + article.precio.toLocaleString("ES-AR"))
+                cardText.innerHTML = '$ ' + article.precio;
                 // Crear boton
                 const btn = document.createElement('a');
                 btn.classList.add('btn', 'btn-primary', 'button');
@@ -61,7 +60,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     modalImg.alt = article.img_desc;
                     modalTitle.innerHTML = article.name;
                     modalText.innerHTML = article.description;
-                    modalPrice.innerHTML = '$' + parseFloat(article.precio).toLocaleString("ES-AR");
+                    modalPrice.innerHTML = '$ ' + article.precio;
                     modalBtn.dataset.id = article.id;
 
                     // Función a ejecutarse al clickar el boton de comprar
@@ -159,7 +158,7 @@ window.addEventListener('DOMContentLoaded', function () {
                         nombre.innerHTML = article.name;
                         // Precio por unidad
                         const precio = document.createElement('div');
-                        precio.innerHTML = 'Precio Unitario: $' + article.precio.toLocaleString("ES-AR");
+                        precio.innerHTML = 'Precio Unitario: $ ' + article.precio;
                         // quantity input
                         const label = document.createElement('label');
                         label.classList.add('cart-label');
@@ -209,15 +208,13 @@ window.addEventListener('DOMContentLoaded', function () {
                     });
                     // Crear el total
                     const total = document.querySelector('#total');
-                    total.innerHTML = '<b>Total:</b><br>$' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0).toLocaleString("ES-AR") ;
+                    total.innerHTML = '<b>Total:</b><br> $' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0).toLocaleString("ES-AR") ;
 
                     
                     
 
                 }
             }
-
-            
 
             updateCart();
 
