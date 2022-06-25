@@ -301,6 +301,10 @@ ul li {
     border-left-color: #dc3545;
 }
 
+.toastjs-btn{
+    border-radius: 20px;
+}
+
 @media screen and (max-width: 768px) {
     .maxWidth {
         max-width: 90vw;

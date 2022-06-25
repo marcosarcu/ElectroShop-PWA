@@ -208,11 +208,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     });
                     // Crear el total
                     const total = document.querySelector('#total');
-                    total.innerHTML = '<b>Total:</b><br> $' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0).toLocaleString("ES-AR") ;
-
-                    
-                    
-
+                    total.innerHTML = '<b>Total:</b><br> $' + cart.reduce((total, article) => total + article.precio * article.cantidad, 0).toLocaleString("ES-AR");
                 }
             }
 
@@ -246,6 +242,46 @@ window.addEventListener('DOMContentLoaded', function () {
         const modal = document.getElementById('modal');
         modal.classList.remove('show');
     });
+
+    // Pedir instalacion
+
+    let mostrarBotonInstallar = () => {
+        setTimeout(() => {
+            new Toast({
+                message: '¡Instalá la app de ElectroShop!',
+                type: 'success',
+                customButtons: [
+                    {
+                        text: 'Instalar',
+                        onClick: () => {instalarApp()}
+                    }
+                ]
+            });
+        }, 5000)
+    };
+
+    let eventInstall;
+    
+    window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        eventInstall = e;
+        mostrarBotonInstallar();
+        //console.log(e);
+    })
+    
+    let instalarApp = () => {
+        if(eventInstall){
+            eventInstall.prompt();
+            eventInstall.userChoice.then(choice => {
+                if(choice.outcome === 'accepted'){
+                    new Toast({
+                        message: '¡Gracias por instalar la app!',
+                        type: 'success'
+                    });
+                }
+            });
+        }
+    }
 
 
     // Notificaciones
