@@ -83,6 +83,17 @@ window.addEventListener('DOMContentLoaded', function () {
                         localStorage.setItem('cart', JSON.stringify(cart));
                         // Actualizo el carrito
                         updateCart();
+                        // Informo al usuario
+                        new Toast({
+                            message: 'Agregado al carrito',
+                            type: 'success',
+                            customButtons: [
+                                {
+                                    text: 'Ver Carrito',
+                                    onClick: () => {abrirCarrito()}
+                                }
+                            ]
+                        });
                         // Elimino el evento
                         modalBtn.removeEventListener('click', modalBtnEvent);
                     }
@@ -242,6 +253,14 @@ window.addEventListener('DOMContentLoaded', function () {
         const modal = document.getElementById('modal');
         modal.classList.remove('show');
     });
+
+    // Abrir Carrito
+
+    let abrirCarrito = () => {
+        let offCanvas = document.getElementById("cart")
+        let newOffCanvas = new bootstrap.Offcanvas(offCanvas)
+        newOffCanvas.toggle()
+    }
 
     // Pedir instalacion
 

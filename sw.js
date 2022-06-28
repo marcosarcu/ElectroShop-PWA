@@ -18,6 +18,8 @@ let urlsToCache = [
     "./imgs/logo.png",
     "./imgs/ContactUs.svg",
     "./imgs/ElectroShop.svg",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css"
 ];
 self.addEventListener("install", function (event) {
     event.waitUntil(
